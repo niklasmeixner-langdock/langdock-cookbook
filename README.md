@@ -1,7 +1,12 @@
 # Langdock Cookbook
 
-Boilerplates to build on for your own use case. Each recipe is a small, runnable
-project covering one common pattern on Langdock — take it and customize it.
+A collection of production-ready boilerplates to accelerate your development on
+Langdock. We've identified patterns that come up more often and turned each one
+into a small, runnable project built to production standards. Rather than
+starting from scratch, you begin with a working foundation and adapt it to your
+organization's specific requirements. Some of these solutions will not be
+available natively due to their customization needs, so these boilerplates give
+you a proven starting point to build them yourself.
 
 - **[MCP recipes](mcp/)** — authentication (OAuth + DCR), interactive UI, file uploads
 - **[A2A recipes](a2a/)** — agents on the A2A protocol
