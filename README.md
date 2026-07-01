@@ -1,7 +1,7 @@
 # Langdock Cookbook
 
-Self-contained recipes for recurring problems when building on Langdock. Each
-recipe is a small, runnable project that solves one problem and explains how.
+Boilerplates to build on for your own use case. Each recipe is a small, runnable
+project covering one common pattern on Langdock — take it and customize it.
 
 - **[MCP recipes](mcp/)** — authentication (OAuth + DCR), interactive UI, file uploads
 - **[A2A recipes](a2a/)** — agents on the A2A protocol
