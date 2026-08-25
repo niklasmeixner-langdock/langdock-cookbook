@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>Intranet — Documents</title>
+    <link rel="icon" href="data:," />
+    <style>
+      :root {
+        --bg: #f3f2f1;
+        --surface: #fff;
+        --text: #323130;
+        --muted: #605e5c;
+        --line: #edebe9;
+        --hover: #f3f2f1;
+        --active: #deecf9;
+        --accent: #03787c;
+        --header: 48px;
+        --nav: 220px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        background: var(--bg);
+      }
+      body {
+        margin: 0;
+        color: var(--text);
+        font: 14px/1.45 "Segoe UI", system-ui, sans-serif;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button,
+      input {
+        font: inherit;
+      }
+      .app {
+        display: grid;
+        grid-template-rows: var(--header) 1fr;
+        height: 100%;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding: 0 16px;
+        background: var(--surface);
+        border-bottom: 1px solid var(--line);
+      }
+      .brand {
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        white-space: nowrap;
+      }
+      nav.top {
+        display: flex;
+        gap: 4px;
+      }
+      nav.top a {
+        padding: 6px 10px;
+        border-radius: 2px;
+        color: var(--muted);
+      }
+      nav.top a[aria-current="page"],
+      nav.top a:hover {
+        color: var(--text);
+        background: var(--hover);
+      }
+      .search {
+        display: flex;
+        margin-left: auto;
+        min-width: 0;
+      }
+      .search input {
+        width: min(280px, 32vw);
+        height: 32px;
+        padding: 0 10px;
+        border: 1px solid var(--line);
+        border-radius: 2px;
+        background: var(--bg);
+        color: var(--text);
+      }
+      .search input:focus {
+        outline: 1px solid var(--accent);
+        border-color: var(--accent);
+      }
+      .user {
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      .shell {
+        display: grid;
+        grid-template-columns: var(--nav) 1fr;
+        min-height: 0;
+        height: 100%;
+      }
+      aside {
+        padding: 12px 8px;
+        background: var(--surface);
+        border-right: 1px solid var(--line);
+      }
+      aside a {
+        display: block;
+        padding: 8px 12px;
+        border-radius: 2px;
+        color: var(--text);
+      }
+      aside a[aria-current="page"] {
+        background: var(--active);
+        font-weight: 600;
+      }
+      aside a:hover {
+        background: var(--hover);
+      }
+      main {
+        min-width: 0;
+        padding: 20px 28px 96px;
+      }
+      .crumb {
+        margin: 0 0 12px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      h1 {
+        margin: 0 0 16px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--surface);
+      }
+      th,
+      td {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        font-weight: 400;
+      }
+      th {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+      }
+      tbody tr:hover {
+        background: var(--hover);
+      }
+      .name {
+        color: var(--accent);
+      }
+      @media (max-width: 720px) {
+        .shell {
+          grid-template-columns: 1fr;
+        }
+        aside,
+        nav.top,
+        .search {
+          display: none;
+        }
+        .search input {
+          width: 160px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <div class="brand">Intranet</div>
+        <nav class="top" aria-label="Sections">
+          <a href="#home">Home</a>
+          <a href="#documents" aria-current="page">Documents</a>
+          <a href="#news">News</a>
+        </nav>
+        <form class="search" role="search" action="#" method="get">
+          <input
+            type="search"
+            name="q"
+            placeholder="Search"
+            aria-label="Search"
+            autocomplete="off"
+          />
+        </form>
+        <div class="user">A. Müller</div>
+      </header>
+      <div class="shell">
+        <aside aria-label="Library">
+          <a href="#home">Home</a>
+          <a href="#documents" aria-current="page">Documents</a>
+          <a href="#news">News</a>
+          <a href="#hr">HR</a>
+        </aside>
+        <main>
+          <section id="home" hidden>
+            <p class="crumb">Home</p>
+            <h1>Home</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Updated</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Office closed 15 Aug (bridge day)</td>
+                  <td>11 Aug 2026</td>
+                </tr>
+                <tr>
+                  <td>VPN maintenance Sunday 02:00–04:00</td>
+                  <td>9 Aug 2026</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="documents">
+            <p class="crumb">Home / Documents</p>
+            <h1>Documents</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Modified</th>
+                  <th>Owner</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="name">Travel policy.pdf</td>
+                  <td>12 Aug 2026</td>
+                  <td>HR</td>
+                </tr>
+                <tr>
+                  <td class="name">Q3 budget.xlsx</td>
+                  <td>8 Aug 2026</td>
+                  <td>Finance</td>
+                </tr>
+                <tr>
+                  <td class="name">Office handbook.docx</td>
+                  <td>2 Aug 2026</td>
+                  <td>HR</td>
+                </tr>
+                <tr>
+                  <td class="name">IT onboarding.pdf</td>
+                  <td>28 Jul 2026</td>
+                  <td>IT</td>
+                </tr>
+                <tr>
+                  <td class="name">Vendor list.xlsx</td>
+                  <td>15 Jul 2026</td>
+                  <td>Procurement</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="news" hidden>
+            <p class="crumb">Home / News</p>
+            <h1>News</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Q3 planning deck is in Documents</td>
+                  <td>8 Aug 2026</td>
+                </tr>
+                <tr>
+                  <td>New travel policy in effect 1 Sep</td>
+                  <td>12 Aug 2026</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="hr" hidden>
+            <p class="crumb">Home / HR</p>
+            <h1>HR</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>Form</th>
+                  <th>Owner</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="name">Leave request.docx</td>
+                  <td>HR</td>
+                </tr>
+                <tr>
+                  <td class="name">Expense report.xlsx</td>
+                  <td>Finance</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script>
+      const pages = ["home", "documents", "news", "hr"];
+      const show = (id) => {
+        const page = pages.includes(id) ? id : "documents";
+        for (const section of document.querySelectorAll("main section")) {
+          section.hidden = section.id !== page;
+        }
+        document.querySelectorAll("[aria-current='page']").forEach((el) => {
+          el.removeAttribute("aria-current");
+        });
+        document.querySelectorAll(`a[href="#${page}"]`).forEach((el) => {
+          el.setAttribute("aria-current", "page");
+        });
+      };
+      document.querySelector(".search")?.addEventListener("submit", (event) => {
+        event.preventDefault();
+      });
+      document.querySelectorAll('a[href^="#"]').forEach((link) => {
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          show(link.hash.slice(1));
+        });
+      });
+    </script>
+    <script src="/widget.js"></script>
+  </body>
+</html>
