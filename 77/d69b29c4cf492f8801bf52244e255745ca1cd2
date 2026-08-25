@@ -1,0 +1,40 @@
+README.md
+  s_7638898d790af8::t_37b1b2c5867c0c 11
+agent-api/embed-iframe/tsconfig.json
+  s_7638898d790af8::t_214b9e9aa9b898 1-16
+agent-api/embed-iframe/Dockerfile
+  s_7638898d790af8::t_5525e966b3ab45 1-11
+agent-api/embed-iframe/README.md
+  s_7638898d790af8::t_2fa534c3addb13 106
+  s_7638898d790af8::t_ae8c37776e3930 1-2,4-105
+  s_7638898d790af8::t_27303acd01d2a5 3
+agent-api/embed-iframe/.gitignore
+  s_7638898d790af8::t_153d7f7162a25d 1-5
+agent-api/embed-iframe/package.json
+  s_7638898d790af8::t_9e51dd92387ab5 1-23
+agent-api/embed-iframe/src/server.ts
+  s_7638898d790af8::t_beb3f0e676ebfd 221-224
+  s_7638898d790af8::t_9d90afda28c9df 1-220,225-280
+agent-api/embed-iframe/.env.example
+  s_7638898d790af8::t_431e2d994b14fa 1-19
+agent-api/README.md
+  s_7638898d790af8::t_a6bfbac4fe5371 1-9
+CONTRIBUTING.md
+  s_7638898d790af8::t_5b847027b249e9 10-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "77d69b29c4cf492f8801bf52244e255745ca1cd2",
+  "prompts": {},
+  "sessions": {
+    "s_7638898d790af8": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "9c0437c6-b469-42e9-a465-ae47600f79aa",
+        "model": "grok-4.6"
+      },
+      "human_author": "Niklas Meixner <niklasmeixner@MacBook-Pro-von-Niklas.local>"
+    }
+  }
+}
