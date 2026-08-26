@@ -1,0 +1,42 @@
+mcp/apps/arcgis/src/oauth/provider.ts
+  s_d760e539ec03ed::t_75563b6aa8bc68 1-113,115-140,142-143,149-168,170-189,191-192,198-236
+  s_d760e539ec03ed::t_a4339a426362c6 114
+  s_d760e539ec03ed::t_809f462572ad7a 190,193-197
+  s_d760e539ec03ed::t_46a3b1c68b11ab 141,144-148
+  s_d760e539ec03ed::t_5bcdfbc7deb9c0 169
+mcp/apps/arcgis/src/ui/map.html
+  s_d760e539ec03ed::t_63ca6a540f0c21 232-235,240-253
+  s_d760e539ec03ed::t_d78f1cb717dd70 1-231,236-239,254-270
+mcp/apps/arcgis/README.md
+  s_d760e539ec03ed::t_02c27460dedfc0 1-132
+mcp/apps/arcgis/src/index.ts
+  s_d760e539ec03ed::t_08f71ef039dfd0 1-648
+mcp/apps/arcgis/src/arcgis/session.ts
+  s_d760e539ec03ed::t_33e35679b5a424 1-25
+mcp/apps/arcgis/src/arcgis/webmap.ts
+  s_d760e539ec03ed::t_b1f92985ece190 1-269
+mcp/apps/arcgis/src/arcgis/portal.ts
+  s_d760e539ec03ed::t_dde3a18c765886 1-223
+mcp/README.md
+  s_d760e539ec03ed::t_e088521a3bab45 11
+mcp/apps/arcgis/src/utils/getMapHtml.ts
+  s_d760e539ec03ed::t_df7f620c214974 1-17
+mcp/apps/arcgis/package.json
+  s_d760e539ec03ed::t_d2e383cf723b95 1-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "acf50d5dd31f21699d27619dfc75dba41412866f",
+  "prompts": {},
+  "sessions": {
+    "s_d760e539ec03ed": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "678c5752-a009-4298-a4ef-6d9cb709f991",
+        "model": "grok-4.6"
+      },
+      "human_author": "Niklas Meixner <niklasmeixner@MacBook-Pro-von-Niklas.local>"
+    }
+  }
+}
