@@ -126,35 +126,6 @@ app.get("/authorize", (req: Request, res: Response) => {
   res.redirect(authUrl.toString());
 });
 
-let authRouterInstance: ReturnType<typeof mcpAuthRouter> | null = null;
-let authRouterFailed = false;
-app.use("/", (req: Request, res: Response, next) => {
-  if (authRouterFailed) {
-    next();
-    return;
-  }
-  if (!authRouterInstance) {
-    try {
-      const base = getBaseUrl();
-      authRouterInstance = mcpAuthRouter({
-        provider: oauthProvider,
-        issuerUrl: new URL(base),
-        baseUrl: new URL(base),
-        scopesSupported: [],
-        resourceName: "ArcGIS MCP Server",
-      });
-    } catch {
-      console.warn(
-        "OAuth auth router not initialized (BASE_URL not set). OAuth disabled.",
-      );
-      authRouterFailed = true;
-      next();
-      return;
-    }
-  }
-  authRouterInstance!(req, res, next);
-});
-
 app.get("/oauth/callback", (req: Request, res: Response) => {
   const { code, state, error, error_description } = req.query;
 
@@ -185,6 +156,25 @@ app.get("/oauth/callback", (req: Request, res: Response) => {
   deleteAuthorizationSession(state);
   res.redirect(redirectUrl.toString());
 });
+
+// Mount at startup. Creating mcpAuthRouter inside a request handler makes
+// express-rate-limit throw ERR_ERL_CREATED_IN_REQUEST_HANDLER and /token 400.
+try {
+  const base = getBaseUrl();
+  app.use(
+    mcpAuthRouter({
+      provider: oauthProvider,
+      issuerUrl: new URL(base),
+      baseUrl: new URL(base),
+      scopesSupported: [],
+      resourceName: "ArcGIS MCP Server",
+    }),
+  );
+} catch {
+  console.warn(
+    "OAuth auth router not initialized (BASE_URL not set). OAuth disabled.",
+  );
+}
 
 function requireToken(token: string): string {
   if (!token) {
