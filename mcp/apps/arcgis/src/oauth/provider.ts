@@ -45,7 +45,9 @@ class ArcgisClientsStore implements OAuthRegisteredClientsStore {
   getClient(clientId: string): OAuthClientInformationFull | undefined {
     let client = registeredClients.get(clientId);
 
-    if (!client && clientId.startsWith("mcp_")) {
+    // In-memory DCR is lost on every Railway restart. Recreate the client so
+    // Langdock's stored client_id still works on POST /token.
+    if (!client && clientId) {
       client = {
         client_id: clientId,
         client_id_issued_at: Math.floor(Date.now() / 1000),
@@ -114,9 +116,8 @@ export class ArcgisOAuthProvider implements OAuthServerProvider {
       f: "json",
     });
 
-    if (codeVerifier) {
-      params.set("code_verifier", codeVerifier);
-    }
+    // PKCE is between Langdock and this proxy. ArcGIS is a confidential client.
+    void codeVerifier;
 
     const response = await fetch(`${portalUrl}/sharing/rest/oauth2/token`, {
       method: "POST",
@@ -127,24 +128,29 @@ export class ArcgisOAuthProvider implements OAuthServerProvider {
       body: params.toString(),
     });
 
+    const rawBody = await response.text();
     if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(
-        `Token exchange failed: ${response.status} - ${errorText}`,
-      );
+      console.error("ArcGIS token exchange failed", { status: response.status });
+      throw new Error(`Token exchange failed: ${response.status}`);
     }
 
-    const tokens = (await response.json()) as {
+    let tokens: {
       access_token?: string;
       expires_in?: number;
       refresh_token?: string;
-      error?: { message?: string } | string;
+      error?: { message?: string; code?: number } | string;
     };
+    try {
+      tokens = JSON.parse(rawBody) as typeof tokens;
+    } catch {
+      throw new Error("ArcGIS token response was not JSON");
+    }
     if (!tokens.access_token) {
       const message =
         typeof tokens.error === "string"
           ? tokens.error
           : tokens.error?.message || "ArcGIS token response did not include access_token";
+      console.error("ArcGIS token response missing access_token");
       throw new Error(message);
     }
     return {

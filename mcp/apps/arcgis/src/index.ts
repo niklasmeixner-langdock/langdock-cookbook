@@ -118,8 +118,7 @@ app.get("/authorize", (req: Request, res: Response) => {
   authUrl.searchParams.set("client_id", arcgisClientId!);
   authUrl.searchParams.set("redirect_uri", `${getBaseUrl()}/oauth/callback`);
   authUrl.searchParams.set("state", sessionId);
-  authUrl.searchParams.set("code_challenge", code_challenge as string);
-  authUrl.searchParams.set("code_challenge_method", "S256");
+  // PKCE stays between the MCP client and this server. Do not send it to ArcGIS.
   // -1 requests a refresh token from ArcGIS Online / Enterprise.
   authUrl.searchParams.set("expiration", "-1");
 
