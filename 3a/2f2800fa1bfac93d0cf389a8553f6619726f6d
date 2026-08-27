@@ -1,0 +1,23 @@
+mcp/apps/arcgis/src/oauth/provider.ts
+  s_d760e539ec03ed::t_57565d0cf179f3 48-50
+  s_d760e539ec03ed::t_197051317268b0 119-120
+  s_d760e539ec03ed::t_537baa39fc32a3 131,133-134,137,141,143-147,153
+mcp/apps/arcgis/src/index.ts
+  s_d760e539ec03ed::t_1f25758c370f5a 121
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "3a2f2800fa1bfac93d0cf389a8553f6619726f6d",
+  "prompts": {},
+  "sessions": {
+    "s_d760e539ec03ed": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "678c5752-a009-4298-a4ef-6d9cb709f991",
+        "model": "grok-4.6"
+      },
+      "human_author": "Niklas Meixner <niklasmeixner@MacBook-Pro-von-Niklas.local>"
+    }
+  }
+}
