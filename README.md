@@ -8,6 +8,7 @@ organization's specific requirements.
 
 - **[MCP recipes](mcp/)** — authentication (OAuth + DCR), interactive UI, file uploads
 - **[A2A recipes](a2a/)** — agents on the A2A protocol
+- **[Agent API recipes](agent-api/)** — embed an agent on SharePoint / intranet via iframe
 
 Each section's README lists its recipes; each recipe folder is standalone with
 its own README.

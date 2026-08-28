@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Assistant</title>
+    <style>
+      :root {
+        --bg: #fff;
+        --text: #1f2026;
+        --muted: #727376;
+        --faint: #a1a1a3;
+        --line: #e8e7e4;
+        --well: #f5f4f2;
+        --user: #f5f4f2;
+        --user-line: #dddcd9;
+        --accent: #4469fc;
+        --accent-soft: #eef1fe;
+        --danger: #b42318;
+        --radius: 16px;
+        --header: 52px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #1f2026;
+          --text: #fbfaf9;
+          --muted: #a1a1a3;
+          --faint: #727376;
+          --line: #37383d;
+          --well: #2b2c32;
+          --user: #2b2c32;
+          --user-line: #434449;
+          --accent-soft: #2a335c;
+          --danger: #f5a8a2;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        color: var(--text);
+        background: var(--bg);
+        font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: var(--header);
+        padding: 0 12px 0 14px;
+        border-bottom: 1px solid var(--line);
+        flex-shrink: 0;
+      }
+      .avatar {
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 9px;
+        background: var(--accent-soft);
+        font-size: 15px;
+        flex-shrink: 0;
+      }
+      .avatar[hidden] {
+        display: none;
+      }
+      .identity {
+        min-width: 0;
+        flex: 1;
+      }
+      h1 {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .ghost {
+        display: grid;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+      }
+      .ghost:hover {
+        background: var(--well);
+        color: var(--text);
+      }
+      .ghost svg {
+        width: 16px;
+        height: 16px;
+      }
+      #log {
+        flex: 1;
+        overflow: auto;
+        padding: 20px 16px 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .empty {
+        margin: auto 0;
+        padding: 8px 8px 24px;
+        text-align: center;
+      }
+      .empty .avatar {
+        width: 40px;
+        height: 40px;
+        margin: 0 auto 12px;
+        font-size: 20px;
+        border-radius: 12px;
+      }
+      .empty p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .msg {
+        max-width: 88%;
+        overflow-wrap: anywhere;
+      }
+      .user {
+        align-self: flex-end;
+        padding: 8px 12px;
+        border: 1px solid var(--user-line);
+        border-radius: 16px 16px 4px 16px;
+        background: var(--user);
+        line-height: 1.45;
+      }
+      .assistant {
+        align-self: stretch;
+        max-width: 100%;
+        color: var(--text);
+        line-height: 1.55;
+      }
+      .assistant > *:first-child {
+        margin-top: 0;
+      }
+      .assistant > *:last-child {
+        margin-bottom: 0;
+      }
+      .assistant h2,
+      .assistant h3 {
+        margin: 1em 0 0.4em;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      .assistant p {
+        margin: 0 0 0.7em;
+      }
+      .assistant ul,
+      .assistant ol {
+        margin: 0 0 0.7em;
+        padding-left: 1.2em;
+      }
+      .assistant li + li {
+        margin-top: 0.2em;
+      }
+      .assistant code {
+        font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+        padding: 0.1em 0.35em;
+        border-radius: 4px;
+        background: var(--well);
+      }
+      .assistant a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .assistant a:hover {
+        text-decoration: underline;
+      }
+      .notice {
+        align-self: stretch;
+        max-width: 100%;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--well);
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+      .status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        align-self: flex-start;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .dots {
+        display: flex;
+        gap: 3px;
+      }
+      .dots i {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--faint);
+        animation: pulse 1.2s ease-in-out infinite;
+      }
+      .dots i:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .dots i:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      @keyframes pulse {
+        0%,
+        80%,
+        100% {
+          opacity: 0.35;
+          transform: translateY(0);
+        }
+        40% {
+          opacity: 1;
+          transform: translateY(-1px);
+        }
+      }
+      .starters {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+      }
+      .starters button {
+        max-width: 100%;
+        padding: 7px 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--bg);
+        color: var(--text);
+        font: inherit;
+        font-size: 13px;
+        line-height: 1.3;
+        text-align: left;
+        cursor: pointer;
+      }
+      .starters button:hover {
+        background: var(--well);
+      }
+      form {
+        flex-shrink: 0;
+        padding: 10px 12px 14px;
+      }
+      .composer {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+        padding: 8px 8px 8px 14px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--bg);
+      }
+      .composer:focus-within {
+        border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+      }
+      textarea {
+        flex: 1;
+        resize: none;
+        min-height: 24px;
+        max-height: 120px;
+        margin: 6px 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--text);
+        font: inherit;
+        line-height: 1.45;
+      }
+      textarea:focus {
+        outline: none;
+      }
+      textarea::placeholder {
+        color: var(--faint);
+      }
+      .send {
+        display: grid;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        border: 0;
+        border-radius: 10px;
+        background: var(--accent);
+        color: #fff;
+        cursor: pointer;
+      }
+      .send:hover:not(:disabled) {
+        filter: brightness(1.06);
+      }
+      .send:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+      .send svg {
+        width: 16px;
+        height: 16px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .dots i {
+          animation: none;
+          opacity: 0.7;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span class="avatar" id="emoji" hidden></span>
+      <div class="identity">
+        <h1 id="title">Assistant</h1>
+      </div>
+      <button class="ghost" id="reset" type="button" title="New chat" aria-label="New chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+      </button>
+    </header>
+    <div id="log"></div>
+    <form id="form">
+      <div class="composer">
+        <textarea
+          id="input"
+          rows="1"
+          placeholder="Ask a question"
+          autocomplete="off"
+        ></textarea>
+        <button class="send" type="submit" aria-label="Send" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </button>
+      </div>
+    </form>
+    <script src="/chat.js"></script>
+  </body>
+</html>
